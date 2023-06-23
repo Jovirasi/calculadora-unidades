@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="estrutura">
+        <div class="valor">
+            <label for="valor">Digite o valor:</label>
+            <input type="number" id="valor" placeholder="0" />
+        </div>
+
+        <div class="de-unidade">
+            <label for="de-unidade">De:</label>
+            <select id="de-unidade">
+                <option value="mm">Milímetro(s)</option>
+                <option value="cm">Centímetro(s)</option>
+                <option value="metros">Metro(s)</option>
+                <option value="km">Quilômetro(s)</option>
+            </select>
+        </div>
+
+        <div class="para-unidade">
+        <label for="para-unidade">Para:</label>
+        <select id="para-unidade">
+            <option value="mm">Milímetro(s)</option>
+            <option value="cm">Centímetro(s)</option>
+            <option value="metros">Metro(s)</option>
+            <option value="km">Quilômetro(s)</option>
+        </select>
+        </div>
+
+        <div class="cent-button">
+            <button class="converter" onclick="converter()">Converter</button>
+        </div>
+        
+
+        <div class="resultado">
+            <label for="resultado">Resultado:</label>
+            <input type="text" id="resultado" readonly/>
+        </div>
+    </main>
+
+    <script>
+        function converter() {
+            // Obter os valores de entrada
+            const valor = parseFloat(document.getElementById('valor').value);
+            const deUnidade = document.getElementById('de-unidade').value;
+            const paraUnidade = document.getElementById('para-unidade').value;
+            let resultado;
+
+
+            switch (deUnidade) {
+                case 'mm':
+                    resultado = {
+                        cm: valor / 10,
+                        metros: valor / 1000,
+                        km: valor / 1000000
+                    };
+                    break;
+                case 'cm':
+                    resultado = {
+                        mm: valor * 10,
+                        metros: valor / 100,
+                        km: valor / 100000
+                    };
+                    break;
+                case 'metros':
+                    resultado = {
+                        mm: valor * 1000,
+                        cm: valor * 100,
+                        km: valor / 1000
+                    };
+                    break;
+                case 'km':
+                    resultado = {
+                        mm: valor * 1000000,
+                        cm: valor * 100000,
+                        metros: valor * 1000
+                    };
+                    break;
+                default:
+                    resultado = {};
+                    break;
+            }
+
+            //verificar se ambos sao iguais
+
+            if (deUnidade == paraUnidade) {
+                alert("Conversão não permitida");
+            } else {
+
+
+                // Exibir o resultado
+                document.getElementById('resultado').value = resultado[paraUnidade];
+            }
+        }
+    </script>
+</body>
+</html>
